@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>道教神像 | 玄门圣像</title>
+    <!-- 引入Tailwind并启用JIT模式减少体积 -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <!-- 延迟加载Font Awesome（非首屏关键资源） -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"></noscript>
+    
+    <script>
+        tailwind.config = {
+            jit: true, // 启用JIT模式，只生成使用过的样式
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B4513',
+                        secondary: '#DAA520',
+                        accent: '#2E8B57',
+                        neutral: '#F5F5DC',
+                        dark: '#2F4F4F',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'sans-serif'],
+                        serif: ['Noto Serif SC', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            .text-shadow-lg {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+            }
+            .bg-blur {
+                backdrop-filter: blur(8px);
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
+            }
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.05);
+            }
+            /* 预定义图片容器样式，避免布局偏移 */
+            .img-container {
+                aspect-ratio: 4/3;
+                overflow: hidden;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-neutral text-dark min-h-screen flex flex-col scroll-smooth">
+    <!-- 导航栏 -->
+    <header class="sticky top-0 z-50 bg-primary/90 bg-blur text-white shadow-lg transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <i class="fa fa-fire text-secondary text-2xl"></i>
+                <span class="text-xl font-bold">玄门圣像</span>
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="hover:text-secondary transition-colors duration-300">首页</a>
+                <a href="#deities" class="hover:text-secondary transition-colors duration-300">神像介绍</a>
+                <a href="#philosophy" class="hover:text-secondary transition-colors duration-300">道教思想</a>
+                <a href="#gallery" class="hover:text-secondary transition-colors duration-300">神像图库</a>
+                <a href="#contact" class="hover:text-secondary transition-colors duration-300">联系我们</a>
+            </nav>
+            <button class="md:hidden text-white text-xl" id="mobile-menu-btn">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单（默认隐藏） -->
+        <div class="md:hidden hidden bg-primary/95 shadow-lg" id="mobile-menu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="#home" class="hover:text-secondary transition-colors duration-300">首页</a>
+                <a href="#deities" class="hover:text-secondary transition-colors duration-300">神像介绍</a>
+                <a href="#philosophy" class="hover:text-secondary transition-colors duration-300">道教思想</a>
+                <a href="#gallery" class="hover:text-secondary transition-colors duration-300">神像图库</a>
+                <a href="#contact" class="hover:text-secondary transition-colors duration-300">联系我们</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区 -->
+    <section id="home" class="relative min-h-[80vh] flex items-center justify-center">
+        <!-- 背景图使用WebP格式+CDN，添加预加载 -->
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://picsum.photos/id/1050/1920/1080?format=webp'); filter: brightness(0.7);"></div>
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold text-white mb-6 text-shadow-lg">
+                靖远县马师傅<br><span class="text-secondary">玄门圣像欣赏</span>
+            </h1>
+            <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 max-w-3xl mx-auto mb-10 text-shadow">
+                探索道教文化中神圣的神像世界，感受传统艺术与宗教哲学的完美融合
+            </p>
+            <a href="#deities" class="inline-block bg-secondary hover:bg-secondary/90 text-dark font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                探索神像 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#deities" class="text-white text-3xl opacity-80 hover:opacity-100 transition-opacity">
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 神像介绍区 -->
+    <section id="deities" class="py-20 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-primary mb-4">道教主要神像</h2>
+                <div class="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-dark/80 max-w-3xl mx-auto">道教是中国传统宗教之一，拥有丰富的神谱体系。以下是道教中几位重要的神祇介绍。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- 神像1：三清 -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden hover-scale">
+                    <div class="relative img-container">
+                        <!-- 图片懒加载+WebP格式 -->
+                        <img src="./images/sanqing.png" alt="三清神像" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110 loading="lazy"">
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent"></div>
+                        <h3 class="absolute bottom-4 left-4 text-white text-xl font-bold text-shadow">三清</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-dark/80 mb-4">三清是道教的最高神，分别是元始天尊、灵宝天尊和道德天尊（太上老君）。他们象征着宇宙万物的本源和创造力量。</p>
+                        <button class="view-deity-btn bg-primary hover:bg-primary/90 text-white py-2 px-6 rounded-full transition-colors duration-300" data-id="sanqing">
+                            查看详情 <i class="fa fa-eye ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 神像2：四御 -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden hover-scale">
+                    <div class="relative img-container">
+                        <img src="./images\思域.png" alt="四御神像" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110 loading="lazy"">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent"></div>
+                        <h3 class="absolute bottom-4 left-4 text-white text-xl font-bold text-shadow">四御</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-dark/80 mb-4">四御是辅佐三清的四位天帝，分别是玉皇大帝、紫微大帝、勾陈大帝和后土皇地祇，他们掌管着天地万物的运行。</p>
+                        <button class="view-deity-btn bg-primary hover:bg-primary/90 text-white py-2 px-6 rounded-full transition-colors duration-300" data-id="siyu">
+                            查看详情 <i class="fa fa-eye ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 神像3：八仙 -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden hover-scale">
+                    <div class="relative img-container">
+                        <img src="./images/八仙.png" alt="八仙神像" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110 loading="lazy"">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent"></div>
+                        <h3 class="absolute bottom-4 left-4 text-white text-xl font-bold text-shadow">八仙</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-dark/80 mb-4">八仙是道教中广为流传的八位神仙，包括铁拐李、汉钟离、张果老、吕洞宾、何仙姑、蓝采和、韩湘子和曹国舅。</p>
+                        <button class="view-deity-btn bg-primary hover:bg-primary/90 text-white py-2 px-6 rounded-full transition-colors duration-300" data-id="baxian">
+                            查看详情 <i class="fa fa-eye ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 神像详情模态框 -->
+    <div id="deity-modal" class="fixed inset-0 bg-dark/90 z-50 flex items-center justify-center hidden">
+        <div class="bg-neutral rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto m-4">
+            <div class="relative">
+                <button id="close-modal" class="absolute top-4 right-4 text-dark/70 hover:text-dark text-2xl z-10">
+                    <i class="fa fa-times"></i>
+                </button>
+                <div id="modal-content" class="p-6">
+                    <!-- 模态框内容将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 道教思想区 -->
+    <section id="philosophy" class="py-20 bg-dark text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-secondary mb-4">道教思想与神像文化</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-white/80 max-w-3xl mx-auto">道教神像是道教文化的重要组成部分，体现了中国人对自然、宇宙和人生的独特理解。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="bg-primary/20 p-3 rounded-full mr-4">
+                            <i class="fa fa-leaf text-secondary text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-secondary mb-2">天人合一</h3>
+                            <p class="text-white/80">道教强调人与自然的和谐统一，认为人是自然的一部分，应顺应自然规律。神像作为信仰的载体，体现了这种哲学思想。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary/20 p-3 rounded-full mr-4">
+                            <i class="fa fa-balance-scale text-secondary text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-secondary mb-2">阴阳平衡</h3>
+                            <p class="text-white/80">阴阳学说是道教的核心思想之一，象征着宇宙万物的对立统一。神像的造型和色彩常常体现阴阳两极的和谐共存。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary/20 p-3 rounded-full mr-4">
+                            <i class="fa fa-heart text-secondary text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-secondary mb-2">道德修养</h3>
+                            <p class="text-white/80">道教注重个人的道德修养和精神境界的提升。神像往往代表着某种美德或品质，成为信徒修行的榜样和精神寄托。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute -top-6 -left-6 w-24 h-24 border-2 border-secondary/50 rounded-lg"></div>
+                    <div class="absolute -bottom-6 -right-6 w-24 h-24 border-2 border-secondary/50 rounded-lg"></div>
+                    <img src="https://picsum.photos/id/1039/800/600?format=webp" alt="道教文化" class="w-full h-auto rounded-lg shadow-2xl relative z-10 loading="lazy"">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 神像图库区 -->
+    <section id="gallery" class="py-20 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-primary mb-4">神像图库</h2>
+                <div class="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-dark/80 max-w-3xl mx-auto">点击下方图片可查看高清大图，深入我们作品艺术之美。</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- 图库图片统一使用懒加载+WebP -->
+                <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer hover-scale">
+                    <img src="./images/a.jpg" alt="三清神像" class="w-full h-60 object-cover loading="lazy"">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer hover-scale">
+                    <img src="./images/b.png" alt="四御神像" class="w-full h-60 object-cover loading="lazy"">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer hover-scale">
+                    <img src="./images/c.jpg" alt="八仙神像" class="w-full h-60 object-cover loading="lazy"">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer hover-scale">
+                    <img src="./images/d.png" alt="玉皇大帝" class="w-full h-60 object-cover loading="lazy"">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer hover-scale">
+                    <img src="./images/e.jpg" alt="王母娘娘" class="w-full h-60 object-cover loading="lazy"">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer hover-scale">
+                    <img src="./images/f.png" alt="太上老君" class="w-full h-60 object-cover loading="lazy"">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer hover-scale">
+                    <img src="./images/g.jpg" alt="吕洞宾" class="w-full h-60 object-cover loading="lazy"">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer hover-scale">
+                    <img src="./images/h.jpg" alt="妈祖" class="w-full h-60 object-cover loading="lazy"">
+                </div>
+            </div>
+
+            <!-- 大图预览 -->
+            <div id="image-viewer" class="fixed inset-0 bg-dark/95 z-50 flex items-center justify-center hidden">
+                <button id="close-viewer" class="absolute top-6 right-6 text-white text-3xl hover:text-secondary transition-colors">
+                    <i class="fa fa-times"></i>
+                </button>
+                <div class="max-w-5xl w-full p-4">
+                    <img id="fullsize-image" src="" alt="神像大图" class="w-full h-auto max-h-[80vh] object-contain">
+                    <div class="text-center mt-4">
+                        <span id="image-caption" class="text-white text-lg"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-20 bg-primary/10">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-primary mb-4">联系我们</h2>
+                <div class="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-dark/80 max-w-3xl mx-auto">如果您对我们的作品有任何疑问或建议，欢迎随时联系我们。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <form>
+                        <div class="mb-6">
+                            <label for="name" class="block text-dark font-medium mb-2">您的姓名</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all">
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-dark font-medium mb-2">电子邮箱</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-dark font-medium mb-2">您的留言</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"></textarea>
+                        </div>
+                        <button type="submit" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            发送留言 <i class="fa fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+                <div>
+                    <div class="flex items-start mb-8">
+                        <div class="bg-primary/20 p-3 rounded-full mr-4">
+                            <i class="fa fa-map-marker text-primary text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary mb-2">地址</h3>
+                            <p class="text-dark/80">靖远县钟鼓楼</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start mb-8">
+                        <div class="bg-primary/20 p-3 rounded-full mr-4">
+                            <i class="fa fa-phone text-primary text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary mb-2">电话</h3>
+                            <p class="text-dark/80">+86 15379427333</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start mb-8">
+                        <div class="bg-primary/20 p-3 rounded-full mr-4">
+                            <i class="fa fa-envelope text-primary text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary mb-2">邮箱</h3>
+                            <p class="text-dark/80">example@example.com</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-primary hover:bg-primary/90 text-white p-3 rounded-full transition-colors duration-300">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                        <a href="#" class="bg-primary hover:bg-primary/90 text-white p-3 rounded-full transition-colors duration-300">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="bg-primary hover:bg-primary/90 text-white p-3 rounded-full transition-colors duration-300">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                        <a href="#" class="bg-primary hover:bg-primary/90 text-white p-3 rounded-full transition-colors duration-300">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-fire text-secondary mr-2"></i> 玄门圣像
+                    </h3>
+                    <p class="text-white/70 mb-6">探索道教文化中神圣的神像世界，感受传统艺术与宗教哲学的完美融合。</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white/70 hover:text-secondary transition-colors">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                        <a href="#" class="text-white/70 hover:text-secondary transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-white/70 hover:text-secondary transition-colors">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                        <a href="#" class="text-white/70 hover:text-secondary transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">快速链接</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-white/70 hover:text-secondary transition-colors">首页</a></li>
+                        <li><a href="#deities" class="text-white/70 hover:text-secondary transition-colors">神像介绍</a></li>
+                        <li><a href="#philosophy" class="text-white/70 hover:text-secondary transition-colors">道教思想</a></li>
+                        <li><a href="#gallery" class="text-white/70 hover:text-secondary transition-colors">神像图库</a></li>
+                        <li><a href="#contact" class="text-white/70 hover:text-secondary transition-colors">联系我们</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">神像分类</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-white/70 hover:text-secondary transition-colors">三清四御</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-secondary transition-colors">八仙</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-secondary transition-colors">民间信仰神祇</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-secondary transition-colors">护法神</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-secondary transition-colors">其他神祇</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">订阅我们</h3>
+                    <p class="text-white/70 mb-4">订阅我们的通讯，获取最新的道教文化资讯和神像艺术作品。</p>
+                    <form class="flex">
+                        <input type="email" placeholder="您的邮箱地址" class="px-4 py-2 rounded-l-lg focus:outline-none w-full text-dark">
+                        <button type="submit" class="bg-secondary hover:bg-secondary/90 text-dark font-bold px-4 py-2 rounded-r-lg transition-colors">
+                            <i class="fa fa-envelope-o"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-white/20 mt-10 pt-6 text-center text-white/50">
+                <p>© 2025 玄门圣像 | 道教神像艺术网. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary hover:bg-primary/90 text-white p-3 rounded-full shadow-lg transform transition-all duration-300 translate-y-20 opacity-0">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 神像数据（精简结构，减少内存占用）
+        const deityData = {
+            'sanqing': {
+                name: '三清',
+                images: [
+                    { url: 'https://picsum.photos/id/1015/1200/800?format=webp', alt: '三清神像全景' },
+                    { url: 'https://picsum.photos/id/1016/1200/800?format=webp', alt: '元始天尊' },
+                    { url: 'https://picsum.photos/id/1018/1200/800?format=webp', alt: '灵宝天尊' },
+                    { url: 'https://picsum.photos/id/1019/1200/800?format=webp', alt: '道德天尊' }
+                ],
+                description: `
+                    <p class="mb-4">三清是道教的最高神，指元始天尊、灵宝天尊、道德天尊。它们是道教对"道"的人格化，体现了道教宇宙生成论的哲学观念。</p>
+                    <p class="mb-4">元始天尊象征着宇宙万物的本源，被认为先天地而生，是万物之元始。他手持圆珠，象征混沌未分的宇宙状态。</p>
+                    <p>道德天尊即太上老君，是道教对老子的尊称。他被视为道的化身，著有《道德经》，倡导"无为而治"的哲学思想。</p>
+                `,
+                history: `<h3 class="text-xl font-bold text-primary mb-3">历史渊源</h3><p>三清信仰源于中国古代的宇宙观和哲学思想，最早可追溯至东汉时期。在南北朝时期基本定型，隋唐时期得到官方推崇。</p>`,
+                culture: `<h3 class="text-xl font-bold text-primary mb-3">文化意义</h3><p>三清信仰体现了道教"道生一，一生二，二生三，三生万物"的宇宙生成论思想，是中国传统文化艺术的重要载体。</p>`
+            },
+            'siyu': {
+                name: '四御',
+                images: [
+                    { url: 'https://picsum.photos/id/1019/1200/800?format=webp', alt: '四御神像全景' },
+                    { url: 'https://picsum.photos/id/1020/1200/800?format=webp', alt: '玉皇大帝' },
+                    { url: 'https://picsum.photos/id/1021/1200/800?format=webp', alt: '紫微大帝' },
+                    { url: 'https://picsum.photos/id/1022/1200/800?format=webp', alt: '勾陈大帝' }
+                ],
+                description: `
+                    <p class="mb-4">四御是道教所崇奉的地位仅次于三清的四位天帝，是天地万物的主宰。</p>
+                    <p class="mb-4">玉皇大帝统御诸天，掌管三界（天界、地界、人界），是万天帝主。</p>
+                    <p>后土皇地祇是主宰大地山川的女性神祇，被称为"大地之母"，是万物之母。</p>
+                `,
+                history: `<h3 class="text-xl font-bold text-primary mb-3">历史渊源</h3><p>四御的信仰源于中国古代的星辰崇拜和天地崇拜，在宋代得到官方的认可，逐渐成为道教信仰的重要组成部分。</p>`,
+                culture: `<h3 class="text-xl font-bold text-primary mb-3">文化意义</h3><p>四御信仰体现了中国古代"天人合一"的哲学思想，反映了古人对宇宙结构和自然规律的认识。</p>`
+            },
+            'baxian': {
+                name: '八仙',
+                images: [
+                    { url: 'https://picsum.photos/id/1025/1200/800?format=webp', alt: '八仙神像全景' },
+                    { url: 'https://picsum.photos/id/1026/1200/800?format=webp', alt: '铁拐李' },
+                    { url: 'https://picsum.photos/id/1027/1200/800?format=webp', alt: '汉钟离' },
+                    { url: 'https://picsum.photos/id/1028/1200/800?format=webp', alt: '张果老' }
+                ],
+                description: `
+                    <p class="mb-4">八仙是中国民间传说中广为流传的道教八位神仙。至明代吴元泰《东游记》始定为：铁拐李、汉钟离、张果老、吕洞宾、何仙姑、蓝采和、韩湘子、曹国舅。</p>
+                    <p>八仙均来自人间，有多彩多姿的凡间故事，之后才得道，与一般神仙道貌岸然的形象截然不同，深受民众喜爱。</p>
+                `,
+                history: `<h3 class="text-xl font-bold text-primary mb-3">历史渊源</h3><p>八仙的传说可追溯到唐宋时期，元明时期被大量引入文学、戏曲和绘画中，成为中国文化中具有广泛影响力的符号。</p>`,
+                culture: `<h3 class="text-xl font-bold text-primary mb-3">文化意义</h3><p>八仙代表了民间对自由、幸福、长寿的向往和追求，反映了中国传统文化中"和而不同"的理念。</p>`
+            }
+        };
+
+        // DOM元素（精简选择器，减少查找次数）
+        const modal = document.getElementById('deity-modal');
+        const modalContent = document.getElementById('modal-content');
+        const closeModal = document.getElementById('close-modal');
+        const viewDeityButtons = document.querySelectorAll('.view-deity-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const imageViewer = document.getElementById('image-viewer');
+        const fullsizeImage = document.getElementById('fullsize-image');
+        const imageCaption = document.getElementById('image-caption');
+        const closeViewer = document.getElementById('close-viewer');
+        const backToTopButton = document.getElementById('back-to-top');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // 移动端菜单切换（简化逻辑）
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 打开神像详情模态框（优化DOM操作）
+        viewDeityButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const deityId = button.getAttribute('data-id');
+                const deity = deityData[deityId];
+                if (!deity) return;
+
+                // 构建图片轮播（减少字符串拼接次数）
+                let imagesHtml = '';
+                let thumbnailsHtml = '';
+                deity.images.forEach((img, index) => {
+                    const active = index === 0 ? 'active' : '';
+                    const activeThumb = index === 0 ? 'border-2 border-secondary' : '';
+                    imagesHtml += `<div class="deity-image ${active}" data-index="${index}"><img src="${img.url}" alt="${img.alt}" class="w-full h-auto rounded-lg shadow-lg"></div>`;
+                    thumbnailsHtml += `<div class="deity-thumbnail ${activeThumb}" data-index="${index}"><img src="${img.url}" alt="${img.alt}" class="w-20 h-16 object-cover rounded cursor-pointer"></div>`;
+                });
+
+                modalContent.innerHTML = `
+                    <div class="text-center mb-6"><h2 class="text-2xl font-bold text-primary">${deity.name}</h2><div class="w-16 h-1 bg-secondary mx-auto mt-2"></div></div>
+                    <div class="relative">
+                        <div class="deity-image-container overflow-hidden rounded-lg shadow-lg mb-4">${imagesHtml}</div>
+                        <div class="flex flex-wrap gap-2 justify-center mb-6">${thumbnailsHtml}</div>
+                        <button class="absolute top-1/2 left-4 -translate-y-1/2 bg-dark/50 hover:bg-dark/70 text-white p-2 rounded-full transition-colors" id="prev-image">
+                            <i class="fa fa-angle-left text-xl"></i>
+                        </button>
+                        <button class="absolute top-1/2 right-4 -translate-y-1/2 bg-dark/50 hover:bg-dark/70 text-white p-2 rounded-full transition-colors" id="next-image">
+                            <i class="fa fa-angle-right text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="prose max-w-none">${deity.description}${deity.history}${deity.culture}</div>
+                `;
+
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+
+                // 图片切换逻辑（复用变量）
+                const prevBtn = document.getElementById('prev-image');
+                const nextBtn = document.getElementById('next-image');
+                const images = modalContent.querySelectorAll('.deity-image');
+                const thumbs = modalContent.querySelectorAll('.deity-thumbnail');
+                let currentIndex = 0;
+
+                const showImage = (index) => {
+                    images.forEach(img => img.classList.remove('active'));
+                    thumbs.forEach(thumb => thumb.classList.remove('border-2', 'border-secondary'));
+                    images[index].classList.add('active');
+                    thumbs[index].classList.add('border-2', 'border-secondary');
+                    currentIndex = index;
+                };
+
+                prevBtn.addEventListener('click', () => showImage((currentIndex - 1 + images.length) % images.length));
+                nextBtn.addEventListener('click', () => showImage((currentIndex + 1) % images.length));
+                thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => showImage(i)));
+            });
+        });
+
+        // 关闭模态框
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+
+        modal.addEventListener('click', (e) => e.target === modal && closeModal.click());
+
+        // 图片查看器
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                fullsizeImage.src = img.src.replace('/600/600', '/1200/1200');
+                fullsizeImage.alt = img.alt;
+                imageCaption.textContent = img.alt;
+                imageViewer.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closeViewer.addEventListener('click', () => {
+            imageViewer.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+
+        imageViewer.addEventListener('click', (e) => e.target === imageViewer && closeViewer.click());
+
+        // 回到顶部按钮（节流优化）
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            if (scrollTop - lastScroll > 50 || scrollTop - lastScroll < -50) { // 节流
+                backToTopButton.classList.toggle('translate-y-0', scrollTop > 300);
+                backToTopButton.classList.toggle('opacity-100', scrollTop > 300);
+                backToTopButton.classList.toggle('translate-y-20', scrollTop <= 300);
+                backToTopButton.classList.toggle('opacity-0', scrollTop <= 300);
+                lastScroll = scrollTop;
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // 平滑滚动（复用锚点逻辑）
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    mobileMenu.classList.add('hidden'); // 点击后关闭移动端菜单
+                }
+            });
+        });
+    </script>
+</body>
+</html>
